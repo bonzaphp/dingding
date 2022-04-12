@@ -10,6 +10,8 @@
     <a href="https://packagist.org/packages/mingyoung/dingtalk"><img src="https://poser.pugx.org/mingyoung/dingtalk/license.svg" alt="License"></a>
 </p>
 
+== 由于原sdk停止维护，这里简单修改 ==
+
 ## 介绍
 
 EasyDingTalk 封装了钉钉身份验证、通讯录管理、消息通知、审批、群机器人、业务事件回调管理等服务端接口，让开发者可以使用简单的配置，提供简洁的 API 以供方便快速地调用钉钉接口。

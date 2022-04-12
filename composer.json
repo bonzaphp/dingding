@@ -1,6 +1,6 @@
 {
-    "name": "mingyoung/dingtalk",
-    "description": "EasyDingTalk, Alibaba Dingtalk SDK for PHP",
+    "name": "bonza/dingtalk",
+    "description": "EasyDingTalk, Alibaba Dingtalk SDK for PHP,modify by bonza",
     "keywords": [
         "dingtalk",
         "dingding",
@@ -12,8 +12,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "张铭阳",
-            "email": "mingyoungcheung@gmail.com"
+            "name": "bonza",
+            "email": "bonzaphp@gmail.com"
         }
     ],
     "require": {
