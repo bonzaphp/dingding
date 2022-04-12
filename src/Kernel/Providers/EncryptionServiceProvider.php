@@ -26,7 +26,7 @@ class EncryptionServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['encryptor'] = function ($app) {
+        $pimple['encryptor'] = static function ($app) {
             return new Encryptor(
                 $app['config']->get('app_key'),
                 $app['config']->get('token'),
