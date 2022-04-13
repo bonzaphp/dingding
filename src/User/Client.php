@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the mingyoung/dingtalk.
  *
@@ -18,40 +17,43 @@ class Client extends BaseClient
     /**
      * 获取用户详情
      *
-     * @param string $userid
-     * @param string|null $lang
+     * @param  string  $userid
+     * @param  string|null  $lang
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($userid, $lang = null)
+    public function get(string $userid, $lang = 'zh_CN')
     {
-        return $this->client->get('user/get', compact('userid', 'lang'));
+        return $this->client->post('topapi/v2/user/get', compact('userid', 'lang'));
     }
 
     /**
      * 获取部门用户 Userid 列表
      *
-     * @param int $departmentId
-     *
+     * @param  int  $dept_id
+     * @param  string  $lang
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserIds($departmentId)
+    public function getUserIds(int $dept_id,string $lang = 'zh_CN')
     {
-        return $this->client->get('user/getDeptMember', ['deptId' => $departmentId]);
+        return $this->client->post('topapi/user/listid', compact('dept_id','lang'));
     }
 
     /**
      * 获取部门用户
      *
-     * @param int $departmentId
-     * @param int $offset
-     * @param int $size
-     * @param string $order
-     * @param string $lang
+     * @param  int  $departmentId
+     * @param  int  $offset
+     * @param  int  $size
+     * @param  string  $order
+     * @param  string  $lang
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUsers($departmentId, $offset, $size, $order = null, $lang = null)
+    public function getUsers(int $departmentId, int $offset, int $size, $order = null, $lang = null)
     {
         return $this->client->get('user/simplelist', [
             'department_id' => $departmentId, 'offset' => $offset, 'size' => $size, 'order' => $order, 'lang' => $lang,
@@ -61,11 +63,11 @@ class Client extends BaseClient
     /**
      * 获取部门用户详情
      *
-     * @param int $departmentId
-     * @param int $offset
-     * @param int $size
-     * @param string $order
-     * @param string $lang
+     * @param  int  $departmentId
+     * @param  int  $offset
+     * @param  int  $size
+     * @param  string  $order
+     * @param  string  $lang
      *
      * @return mixed
      */
@@ -89,7 +91,7 @@ class Client extends BaseClient
     /**
      * 获取管理员通讯录权限范围
      *
-     * @param string $userid
+     * @param  string  $userid
      *
      * @return mixed
      */
@@ -101,7 +103,7 @@ class Client extends BaseClient
     /**
      * 根据 Unionid 获取 Userid
      *
-     * @param string $unionid
+     * @param  string  $unionid
      *
      * @return mixed
      */
@@ -113,7 +115,7 @@ class Client extends BaseClient
     /**
      * 创建用户
      *
-     * @param array $params
+     * @param  array  $params
      *
      * @return mixed
      */
@@ -125,8 +127,8 @@ class Client extends BaseClient
     /**
      * 更新用户
      *
-     * @param string $userid
-     * @param array $params
+     * @param  string  $userid
+     * @param  array  $params
      *
      * @return mixed
      */
@@ -150,7 +152,7 @@ class Client extends BaseClient
     /**
      * 企业内部应用免登获取用户 Userid
      *
-     * @param string $code
+     * @param  string  $code
      *
      * @return mixed
      */
@@ -162,8 +164,8 @@ class Client extends BaseClient
     /**
      * 批量增加员工角色
      *
-     * @param array|string $userIds
-     * @param array|string $roleIds
+     * @param  array|string  $userIds
+     * @param  array|string  $roleIds
      *
      * @return mixed
      */
@@ -171,15 +173,14 @@ class Client extends BaseClient
     {
         $userIds = is_array($userIds) ? implode(',', $userIds) : $userIds;
         $roleIds = is_array($roleIds) ? implode(',', $roleIds) : $roleIds;
-
         return $this->client->postJson('topapi/role/addrolesforemps', compact('userIds', 'roleIds'));
     }
 
     /**
      * 批量删除员工角色
      *
-     * @param array|string $userIds
-     * @param array|string $roleIds
+     * @param  array|string  $userIds
+     * @param  array|string  $roleIds
      *
      * @return mixed
      */
@@ -187,14 +188,13 @@ class Client extends BaseClient
     {
         $userIds = is_array($userIds) ? implode(',', $userIds) : $userIds;
         $roleIds = is_array($roleIds) ? implode(',', $roleIds) : $roleIds;
-
         return $this->client->postJson('topapi/role/removerolesforemps', compact('userIds', 'roleIds'));
     }
 
     /**
      * 获取企业员工人数
      *
-     * @param int $onlyActive
+     * @param  int  $onlyActive
      *
      * @return mixed
      */
@@ -216,7 +216,7 @@ class Client extends BaseClient
     /**
      * 根据员工手机号获取 Userid
      *
-     * @param string $mobile
+     * @param  string  $mobile
      *
      * @return mixed
      */
@@ -228,9 +228,9 @@ class Client extends BaseClient
     /**
      * 未登录钉钉的员工列表
      *
-     * @param string $query_date
-     * @param int $offset
-     * @param int $size
+     * @param  string  $query_date
+     * @param  int  $offset
+     * @param  int  $size
      *
      * @return mixed
      */

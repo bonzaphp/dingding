@@ -20,6 +20,7 @@ use Pimple\Container;
  * @property \EasyDingTalk\Chat\Client $chat
  * @property \EasyDingTalk\Role\Client $role
  * @property \EasyDingTalk\User\Client $user
+ * @property \EasyDingTalk\Employee\Client $employee
  * @property \EasyDingTalk\Media\Client $media
  * @property \EasyDingTalk\H5app\Client $h5app
  * @property \EasyDingTalk\Health\Client $health
@@ -52,6 +53,7 @@ class Application extends Container
         Chat\ServiceProvider::class,
         Role\ServiceProvider::class,
         User\ServiceProvider::class,
+        Employee\ServiceProvider::class,
         Media\ServiceProvider::class,
         H5app\ServiceProvider::class,
         Health\ServiceProvider::class,
@@ -85,7 +87,7 @@ class Application extends Container
     {
         parent::__construct($values);
 
-        $this['config'] = function () use ($config) {
+        $this['config'] = static function () use ($config) {
             return new Collection($config);
         };
 
