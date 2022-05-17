@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the mingyoung/dingtalk.
  *
@@ -18,6 +17,7 @@ use Pimple\Container;
  * @property \EasyDingTalk\Auth\SsoClient $sso
  * @property \EasyDingTalk\Auth\OAuthClient $oauth
  * @property \EasyDingTalk\Chat\Client $chat
+ * @property \EasyDingTalk\News\Client $news
  * @property \EasyDingTalk\Role\Client $role
  * @property \EasyDingTalk\User\Client $user
  * @property \EasyDingTalk\Employee\Client $employee
@@ -48,8 +48,9 @@ class Application extends Container
     /**
      * @var array
      */
-    protected $providers = [
+    protected array $providers = [
         Auth\ServiceProvider::class,
+        News\ServiceProvider::class,
         Chat\ServiceProvider::class,
         Role\ServiceProvider::class,
         User\ServiceProvider::class,
@@ -80,17 +81,15 @@ class Application extends Container
     /**
      * Application constructor.
      *
-     * @param array $config
-     * @param array $values
+     * @param  array  $config
+     * @param  array  $values
      */
-    public function __construct($config = [], array $values = [])
+    public function __construct(array $config = [], array $values = [])
     {
         parent::__construct($values);
-
         $this['config'] = static function () use ($config) {
             return new Collection($config);
         };
-
         foreach ($this->providers as $provider) {
             $this->register(new $provider());
         }

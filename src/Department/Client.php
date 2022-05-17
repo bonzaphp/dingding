@@ -46,14 +46,15 @@ class Client extends BaseClient
     /**
      * 获取部门详情
      *
-     * @param string $id
-     * @param string $lang
+     * @param string $dept_id
+     * @param  string  $lang
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($id, $lang = null)
+    public function get(string $dept_id, $lang = null)
     {
-        return $this->client->get('department/get', compact('id', 'lang'));
+        return $this->client->post('topapi/v2/department/get', compact('dept_id', 'lang'));
     }
 
     /**

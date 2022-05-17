@@ -12,7 +12,6 @@
 namespace EasyDingTalk\Kernel;
 
 use EasyDingTalk\Kernel\Exceptions\InvalidArgumentException;
-use EasyDingTalk\Kernel\Exceptions\RuntimeException;
 use function EasyDingTalk\tap;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,9 +38,9 @@ class Server
     /**
      * Handle the request.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function serve()
+    public function serve(): Response
     {
         foreach ($this->handlers as $handler) {
             $handler->__invoke($this->getPayload());
@@ -67,9 +66,9 @@ class Server
      *
      * @return void
      *
-     * @throws \EasyDingTalk\Kernel\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function push($handler)
+    public function push($handler): void
     {
         if (is_string($handler)) {
             $handler = function ($payload) use ($handler) {
@@ -81,7 +80,7 @@ class Server
             throw new InvalidArgumentException('Invalid handler');
         }
 
-        array_push($this->handlers, $handler);
+        $this->handlers[] = $handler;
     }
 
     /**
@@ -89,18 +88,19 @@ class Server
      *
      * @return array
      */
-    public function getPayload()
+    public function getPayload(): array
     {
-        $payload = json_decode($this->app['request']->getContent(), true);
+        $content = $this->app['request']->getContent();
+        try {
+            $payload = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new RuntimeException('No payload received');
+            $result = $this->app['encryptor']->decrypt(
+                $payload['encrypt'], $this->app['request']->get('signature'), $this->app['request']->get('nonce'), $this->app['request']->get('timestamp')
+            );
+
+            return json_decode($result, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new \RuntimeException($e->getMessage());
         }
-
-        $result = $this->app['encryptor']->decrypt(
-            $payload['encrypt'], $this->app['request']->get('signature'), $this->app['request']->get('nonce'), $this->app['request']->get('timestamp')
-        );
-
-        return json_decode($result, true);
     }
 }

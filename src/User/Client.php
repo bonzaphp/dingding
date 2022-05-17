@@ -70,6 +70,7 @@ class Client extends BaseClient
      * @param  string  $lang
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getDetailedUsers($departmentId, $offset, $size, $order = null, $lang = null)
     {
@@ -82,6 +83,7 @@ class Client extends BaseClient
      * 获取管理员列表
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function administrators()
     {
@@ -94,6 +96,7 @@ class Client extends BaseClient
      * @param  string  $userid
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function administratorScope($userid)
     {
@@ -106,6 +109,7 @@ class Client extends BaseClient
      * @param  string  $unionid
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUseridByUnionid($unionid)
     {
@@ -118,6 +122,7 @@ class Client extends BaseClient
      * @param  array  $params
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(array $params)
     {
@@ -131,6 +136,7 @@ class Client extends BaseClient
      * @param  array  $params
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function update($userid, array $params)
     {
@@ -143,6 +149,7 @@ class Client extends BaseClient
      * @param $userid
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function delete($userid)
     {
@@ -155,8 +162,9 @@ class Client extends BaseClient
      * @param  string  $code
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserByCode($code)
+    public function getUserByCode(string $code)
     {
         return $this->client->get('user/getuserinfo', compact('code'));
     }
@@ -168,6 +176,7 @@ class Client extends BaseClient
      * @param  array|string  $roleIds
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addRoles($userIds, $roleIds)
     {
@@ -183,6 +192,7 @@ class Client extends BaseClient
      * @param  array|string  $roleIds
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function removeRoles($userIds, $roleIds)
     {
@@ -197,6 +207,7 @@ class Client extends BaseClient
      * @param  int  $onlyActive
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getCount($onlyActive = 0)
     {
@@ -207,6 +218,7 @@ class Client extends BaseClient
      * 获取企业已激活的员工人数
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getActivatedCount()
     {
@@ -219,6 +231,7 @@ class Client extends BaseClient
      * @param  string  $mobile
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUserIdByPhone($mobile = '')
     {
@@ -233,8 +246,9 @@ class Client extends BaseClient
      * @param  int  $size
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getInactiveUsers($query_date, $offset, $size)
+    public function getInactiveUsers(string $query_date, int $offset, int $size)
     {
         return $this->client->postJson('topapi/inactive/user/get', [
             'query_date' => $query_date, 'offset' => $offset, 'size' => $size

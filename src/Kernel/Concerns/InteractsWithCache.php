@@ -26,7 +26,7 @@ trait InteractsWithCache
     /**
      * @return \Psr\SimpleCache\CacheInterface
      */
-    public function getCache()
+    public function getCache(): CacheInterface
     {
         if ($this->cache) {
             return $this->cache;

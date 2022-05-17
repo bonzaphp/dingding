@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the mingyoung/dingtalk.
  *
@@ -18,10 +17,11 @@ class Client extends BaseClient
     /**
      * 发送群消息
      *
-     * @param string $chatId
-     * @param string $message
+     * @param  string  $chatId
+     * @param  string  $message
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send($chatId, $message)
     {
@@ -33,11 +33,12 @@ class Client extends BaseClient
     /**
      * 查询群消息已读人员列表
      *
-     * @param string $messageId
-     * @param int    $cursor
-     * @param int    $size
+     * @param  string  $messageId
+     * @param  int  $cursor
+     * @param  int  $size
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function result($messageId, $cursor, $size)
     {
@@ -49,11 +50,12 @@ class Client extends BaseClient
     /**
      * 创建会话
      *
-     * @param array $params
+     * @param  array  $params
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function create($params)
+    public function create(array $params)
     {
         return $this->client->postJson('chat/create', $params);
     }
@@ -61,10 +63,11 @@ class Client extends BaseClient
     /**
      * 修改会话
      *
-     * @param string $chatId
-     * @param array  $params
+     * @param  string  $chatId
+     * @param  array  $params
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function update($chatId, $params)
     {
@@ -74,11 +77,12 @@ class Client extends BaseClient
     /**
      * 获取会话
      *
-     * @param string $chatId
+     * @param  string  $chatId
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($chatId)
+    public function get(string $chatId)
     {
         return $this->client->get('chat/get', ['chatid' => $chatId]);
     }

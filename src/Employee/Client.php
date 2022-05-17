@@ -12,6 +12,13 @@ namespace EasyDingTalk\Employee;
 
 use EasyDingTalk\Kernel\BaseClient;
 
+/**
+ * 智能人事相关API
+ * Class Client
+ * @author bonzaphp@gmail.com
+ * @Date 2022/4/13 2:39 下午
+ * @package EasyDingTalk\Employee
+ */
 class Client extends BaseClient
 {
     /**

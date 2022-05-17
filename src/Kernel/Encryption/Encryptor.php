@@ -58,7 +58,7 @@ class Encryptor
      *
      * @return string
      */
-    public function encrypt($data, $nonce = null, $timestamp = null)
+    public function encrypt($data, $nonce = null, $timestamp = null): string
     {
         $string = str_random().pack('N', strlen($data)).$data.$this->key;
 
@@ -80,14 +80,14 @@ class Encryptor
     /**
      * Decrypt the data.
      *
-     * @param string $data
-     * @param string $signature
-     * @param string $nonce
-     * @param int    $timestamp
+     * @param  string  $data
+     * @param  string  $signature
+     * @param  string  $nonce
+     * @param  int  $timestamp
      *
      * @return string
      */
-    public function decrypt($data, $signature, $nonce, $timestamp)
+    public function decrypt(string $data, string $signature, string $nonce, $timestamp): string
     {
         if ($signature !== $this->signature($this->token, $nonce, $timestamp, $data)) {
             throw new \RuntimeException('Invalid Signature.');
@@ -115,7 +115,7 @@ class Encryptor
      *
      * @return string
      */
-    public function signature()
+    public function signature(): string
     {
         $array = func_get_args();
         sort($array, SORT_STRING);
@@ -130,7 +130,7 @@ class Encryptor
      *
      * @return string
      */
-    public function pkcs7Pad(string $text)
+    public function pkcs7Pad(string $text): string
     {
         $padding = $this->blockSize - (strlen($text) % $this->blockSize);
         $pattern = chr($padding);
@@ -145,7 +145,7 @@ class Encryptor
      *
      * @return string
      */
-    public function pkcs7Unpad(string $text)
+    public function pkcs7Unpad(string $text): string
     {
         $pad = ord(substr($text, -1));
         if ($pad < 1 || $pad > $this->blockSize) {
