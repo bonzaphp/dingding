@@ -18,7 +18,7 @@ EasyDingTalk 封装了钉钉身份验证、通讯录管理、消息通知、审�
 
 ## 环境要求
 
-- PHP 7.0+
+- PHP 7.4+
 - [Composer](https://getcomposer.org/)
 
 ## 安装

@@ -60,25 +60,25 @@ class Client extends BaseClient
     /**
      * 查询部门的所有上级父部门路径
      *
-     * @param string $id
+     * @param string $dept_id
      *
      * @return mixed
      */
-    public function getParentsById($id)
+    public function getParentsById($dept_id)
     {
-        return $this->client->get('department/list_parent_depts_by_dept', compact('id'));
+        return $this->client->post('topapi/v2/department/listparentbydept', compact('dept_id'));
     }
 
     /**
      * 查询指定用户的所有上级父部门路径
      *
-     * @param string $userId
+     * @param string $userid
      *
      * @return mixed
      */
-    public function getParentsByUserId($userId)
+    public function getParentsByUserId($userid)
     {
-        return $this->client->get('department/list_parent_depts', compact('userId'));
+        return $this->client->post('topapi/v2/department/listparentbyuser', compact('userid'));
     }
 
     /**
