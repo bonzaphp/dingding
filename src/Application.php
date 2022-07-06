@@ -18,6 +18,7 @@ use Pimple\Container;
  * @property \EasyDingTalk\Auth\OAuthClient $oauth
  * @property \EasyDingTalk\Chat\Client $chat
  * @property \EasyDingTalk\News\Client $news
+ * @property \EasyDingTalk\Tasks\Client $tasks
  * @property \EasyDingTalk\Role\Client $role
  * @property \EasyDingTalk\User\Client $user
  * @property \EasyDingTalk\Employee\Client $employee
@@ -51,6 +52,7 @@ class Application extends Container
     protected array $providers = [
         Auth\ServiceProvider::class,
         News\ServiceProvider::class,
+        Tasks\ServiceProvider::class,
         Chat\ServiceProvider::class,
         Role\ServiceProvider::class,
         User\ServiceProvider::class,

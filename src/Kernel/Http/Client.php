@@ -65,6 +65,8 @@ class Client extends BaseClient
                     $request = $request->withUri(
                         $request->getUri()->withQuery(http_build_query(['access_token' => $this->app['access_token']->getToken()] + $query))
                     );
+                    $request = $request->withHeader('Authorization', 'Bearer ' . $this->app['access_token']->getToken());
+                    $request = $request->withHeader('x-acs-dingtalk-access-token', $this->app['access_token']->getToken());
                 }
 
                 return $handler($request, $options);
