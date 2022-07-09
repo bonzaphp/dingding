@@ -18,9 +18,11 @@ class Client extends BaseClient
     /**
      * 注册业务事件回调接口
      *
-     * @param array $params
+     * @param  array  $params
      *
      * @return mixed
+     * @deprecated
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function register($params)
     {
@@ -34,6 +36,8 @@ class Client extends BaseClient
      * 查询事件回调接口
      *
      * @return mixed
+     * @deprecated
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function list()
     {
@@ -44,6 +48,8 @@ class Client extends BaseClient
      * 更新事件回调接口
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @deprecated
      */
     public function update($params)
     {
@@ -57,6 +63,8 @@ class Client extends BaseClient
      * 删除事件回调接口
      *
      * @return mixed
+     * @deprecated
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function delete()
     {
@@ -67,6 +75,7 @@ class Client extends BaseClient
      * 获取回调失败结果
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function failed()
     {
