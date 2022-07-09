@@ -72,7 +72,7 @@ class Encryptor
             openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, substr($this->aesKey, 0, 16))
 //            openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, $iv)
         );
-        !is_null($nonce) || $nonce = uniqid('', true);
+        !is_null($nonce) || $nonce = uniqid('',false);
         !is_null($timestamp) || $timestamp = time();
         return json_encode([
             'msg_signature' => $this->signature($this->token, $nonce, $timestamp, $result),
