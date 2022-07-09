@@ -19,6 +19,7 @@ class SsoClient extends Client
      * 获取应用后台免登 AccessToken
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getToken()
     {
@@ -32,6 +33,7 @@ class SsoClient extends Client
      * 获取用户身份信息
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function user()
     {

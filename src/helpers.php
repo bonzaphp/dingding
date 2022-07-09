@@ -27,11 +27,12 @@ function tap($value, $callback)
 /**
  * Generate a more truly "random" alpha-numeric string.
  *
- * @param int $length
+ * @param  int  $length
  *
  * @return string
+ * @throws \Exception
  */
-function str_random($length = 16)
+function str_random(int $length = 16): string
 {
     $string = '';
 
