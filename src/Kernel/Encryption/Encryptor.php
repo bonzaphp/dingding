@@ -63,15 +63,14 @@ class Encryptor
     {
         $string = str_random().pack('N', strlen($data)).$data.$this->key;
         $encryptMethod = 'AES-256-CBC';
-        $ivLength = openssl_cipher_iv_length($encryptMethod);
-//        $iv = openssl_random_pseudo_bytes($ivLength, $isStrong);
-        $iv = random_bytes($ivLength);
+//        $ivLength = openssl_cipher_iv_length($encryptMethod);
+//        $iv = random_bytes($ivLength);
 //        if (false === $iv && false === $isStrong) {
 //            die('IV generate failed');
 //        }
         $result = base64_encode(
-//            openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, substr($this->aesKey, 0, 16))
-            openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, $iv)
+            openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, substr($this->aesKey, 0, 16))
+//            openssl_encrypt($this->pkcs7Pad($string), $encryptMethod, $this->aesKey, OPENSSL_NO_PADDING, $iv)
         );
         !is_null($nonce) || $nonce = uniqid('', true);
         !is_null($timestamp) || $timestamp = time();
