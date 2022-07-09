@@ -27,22 +27,14 @@ class Client extends BaseClient
      */
     public function add(string $unionId, string $operatorId, string $subject, string $access_token, string $description = '', int $priority = 20)
     {
-        try {
-            $content = [
-                'subject'     => $subject,
-                'description' => $description,
-                'priority'    => $priority,
-                'dueTime'     => self::getMillisecond() + (3600 * 24 * 1000),
-                'dingNotify'  => 1,
-            ];
-            $this->client->setHttpConfig([
-                'base_uri' => 'https://api.dingtalk.com',
-            ]);
-            return $this->client->postJson("https://api.dingtalk.com/v1.0/todo/users/{$unionId}/tasks?operatorId=".$operatorId, $content);
-        } catch (GuzzleException $e) {
-            echo $e->getResponse()->getBody()->getContents();
-            return;
-        }
+        $content = [
+            'subject'     => $subject,
+            'description' => $description,
+            'priority'    => $priority,
+            'dueTime'     => self::getMillisecond() + (3600 * 24 * 1000),
+            'dingNotify'  => 1,
+        ];
+        return $this->client->postJson("https://api.dingtalk.com/v1.0/todo/users/{$unionId}/tasks?operatorId=".$operatorId, $content);
     }
 
     /**
