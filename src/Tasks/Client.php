@@ -25,7 +25,7 @@ class Client extends BaseClient
      * @return array|object|\Overtrue\Http\Support\Collection|\Psr\Http\Message\ResponseInterface|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function add(string $unionId, string $operatorId, string $subject, string $access_token, string $description = '', int $priority = 20)
+    public function add(string $unionId, string $operatorId, string $subject, string $description = '', int $priority = 20)
     {
         $content = [
             'subject'     => $subject,

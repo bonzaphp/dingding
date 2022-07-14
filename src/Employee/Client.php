@@ -27,8 +27,7 @@ class Client extends BaseClient
      */
     public function onJob()
     {
-        return $this->client->postJson('topapi/smartwork/hrm/employee/queryonjob',[]);
-
+        return $this->client->postJson('topapi/smartwork/hrm/employee/queryonjob', []);
     }
 
     /**
@@ -38,9 +37,9 @@ class Client extends BaseClient
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @author bonzaphp@gmail.com
      */
-    public function preentry(array $params = ['offset'=>0,'size'=>50])
+    public function preentry(array $params = ['offset' => 0, 'size' => 50])
     {
-        return $this->client->postJson('topapi/smartwork/hrm/employee/querypreentry',$params);
+        return $this->client->postJson('topapi/smartwork/hrm/employee/querypreentry', $params);
     }
 
 
@@ -50,7 +49,7 @@ class Client extends BaseClient
      * @return array|object|\Overtrue\Http\Support\Collection|\Psr\Http\Message\ResponseInterface|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function dimission(array $params = ['offset' => 0,'size'=>50])
+    public function dimission(array $params = ['offset' => 0, 'size' => 50])
     {
         return $this->client->postJson('topapi/smartwork/hrm/employee/querydimission', $params);
     }
@@ -58,9 +57,9 @@ class Client extends BaseClient
     /**
      * 获取员工离职信息
      */
-    public function listDimission()
+    public function dimissionList()
     {
-        return $this->client->postJson('topapi/smartwork/hrm/employee/listdimission',[]);
+        return $this->client->postJson('topapi/smartwork/hrm/employee/listdimission', []);
     }
 
     /**
@@ -68,7 +67,22 @@ class Client extends BaseClient
      */
     public function addPreentry()
     {
-        return $this->client->postJson('topapi/smartwork/hrm/employee/addpreentry',[]);
+        return $this->client->postJson('topapi/smartwork/hrm/employee/addpreentry', []);
+    }
+
+    /**
+     * 批量获取员工离职信息
+     * 新版服务端API
+     * @return array|object|\Overtrue\Http\Support\Collection|\Psr\Http\Message\ResponseInterface|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @author bonzaphp@gmail.com
+     */
+    public function dimissionInfos(array $userIds)
+    {
+        $userIdStr = '["'.implode('","', $userIds).'"]';
+        return $this->client->get('https://api.dingtalk.com/v1.0/hrm/employees/dimissionInfos', [
+            'userIdList' => $userIdStr,
+        ]);
     }
 
 

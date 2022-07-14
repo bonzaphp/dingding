@@ -66,7 +66,6 @@ class Client extends BaseClient
                         $request->getUri()->withQuery(http_build_query(['access_token' => $this->app['access_token']->getToken()] + $query))
                     );
                     $request = $request->withHeader('Authorization', 'Bearer ' . $this->app['access_token']->getToken());
-                    $request = $request->withHeader('x-acs-dingtalk-access-token', $this->app['access_token']->getToken());
                 }
 
                 return $handler($request, $options);
@@ -74,6 +73,31 @@ class Client extends BaseClient
         };
 
         $this->pushMiddleware($middleware, 'access_token');
+
+        return $this;
+    }
+
+    /**
+     * 添加新的header头
+     * @return $this
+     */
+    public function withAddHeaderMiddleware()
+    {
+        if (isset($this->getMiddlewares()['add_header'])) {
+            return $this;
+        }
+
+        $middleware = function (callable $handler) {
+            return function (RequestInterface $request, array $options) use ($handler) {
+                if ($this->app['access_token']) {
+                    $request = $request->withHeader('x-acs-dingtalk-access-token', $this->app['access_token']->getToken());
+                }
+
+                return $handler($request, $options);
+            };
+        };
+
+        $this->pushMiddleware($middleware, 'add_header');
 
         return $this;
     }
