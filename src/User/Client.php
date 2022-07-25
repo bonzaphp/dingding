@@ -166,7 +166,7 @@ class Client extends BaseClient
      */
     public function getUserByCode(string $code)
     {
-        return $this->client->get('user/getuserinfo', compact('code'));
+        return $this->client->get('topapi/v2/user/getuserinfo', compact('code'));
     }
 
     /**
