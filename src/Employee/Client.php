@@ -57,9 +57,9 @@ class Client extends BaseClient
     /**
      * 获取员工离职信息
      */
-    public function dimissionList()
+    public function dimissionList(array $userid_list)
     {
-        return $this->client->postJson('topapi/smartwork/hrm/employee/listdimission', []);
+        return $this->client->postJson('topapi/smartwork/hrm/employee/listdimission', $userid_list);
     }
 
     /**

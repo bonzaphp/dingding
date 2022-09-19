@@ -18,9 +18,11 @@ class Client extends BaseClient
     /**
      * 获取子部门 ID 列表
      *
-     * @param string $id 部门ID
+     * @param  string  $id  部门ID
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @deprecated
      */
     public function getSubDepartmentIds($id)
     {
@@ -28,13 +30,44 @@ class Client extends BaseClient
     }
 
     /**
+     * 获取子部门 ID 列表
+     *
+     *
+     * @param $dept_id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getListSubId($dept_id)
+    {
+        return $this->client->post('topapi/v2/department/listsubid', compact('dept_id'));
+    }
+
+    /**
      * 获取部门列表
      *
-     * @param bool   $isFetchChild
-     * @param string $id
-     * @param string $lang
+     * @param  string|null  $dept_id
+     * @param  string|null  $lang
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function listSub(string $dept_id = null, string $lang = null)
+    {
+        return $this->client->post('topapi/v2/department/listsub', [
+            'dept_id' => $dept_id,
+            'lang' => $lang,
+        ]);
+    }
+
+    /**
+     * 获取部门列表
+     *
+     * @param  bool  $isFetchChild
+     * @param  string  $id
+     * @param  string  $lang
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @deprecated
      */
     public function list($id = null, bool $isFetchChild = false, $lang = null)
     {

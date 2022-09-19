@@ -49,7 +49,7 @@ class Client extends BaseClient
      * @param  int  $size
      * @param  string  $order
      * @param  string  $lang
-     *
+     * @deprecated
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -57,6 +57,23 @@ class Client extends BaseClient
     {
         return $this->client->get('user/simplelist', [
             'department_id' => $departmentId, 'offset' => $offset, 'size' => $size, 'order' => $order, 'lang' => $lang,
+        ]);
+    }
+
+    /**
+     * 通过部门ID获取部门用户
+     *
+     * @param  int  $dept_id
+     * @param  string  $lang
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUsersByDeptId(int $dept_id, $lang = null)
+    {
+        return $this->client->post('topapi/user/listid', [
+            'dept_id' => $dept_id,
+            'lang' => $lang,
         ]);
     }
 
